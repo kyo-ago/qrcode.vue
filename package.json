@@ -7,10 +7,9 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --open",
     "clean": "rimraf -- dist",
-    "build:es": "cross-env NODE_ENV=es rollup -c",
-    "build:umd": "cross-env NODE_ENV=development rollup -c",
-    "build:umd:min": "cross-env NODE_ENV=production rollup -c",
-    "build": "npm run clean && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "build:es": "babel src/index.js > dist/qrcode.vue.esm.js",
+    "build:umd": "babel --plugins @babel/plugin-transform-modules-commonjs src/index.js > dist/qrcode.vue.js",
+    "build": "npm run clean && mkdir dist && npm run build:es && npm run build:umd",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -37,9 +36,13 @@
   "peerDependencies": {
     "vue": "^2.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "qrcode": "^1.4.1"
+  },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
     "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@babel/preset-env": "^7.4.5",
     "babel-loader": "^8.0.6",
     "cross-env": "^5.2.0",
@@ -48,7 +51,6 @@
     "husky": "^2.3.0",
     "prettier": "1.17.1",
     "pretty-quick": "^1.11.0",
-    "qrcode": "^1.4.1",
     "rimraf": "^2.6.3",
     "rollup": "^1.12.3",
     "rollup-plugin-babel": "^4.3.2",
