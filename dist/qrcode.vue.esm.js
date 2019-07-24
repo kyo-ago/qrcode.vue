@@ -76,19 +76,16 @@ var QrcodeVue = {
         level = this.level,
         background = this.background,
         foreground = this.foreground
-
-      var _size = size >>> 0 // size to number
-
       var canvas = this.$refs['qrcode-vue']
       qrcode.toCanvas(
         canvas,
         value,
         {
           errorCorrectionLevel: level,
-          width: _size,
+          width: Number(size),
           color: {
-            dark: background,
-            light: foreground,
+            dark: foreground,
+            light: background,
           },
         },
         function(error) {

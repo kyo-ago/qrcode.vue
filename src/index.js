@@ -54,7 +54,6 @@ const QrcodeVue = {
   methods: {
     render() {
       const { value, size, level, background, foreground } = this
-      const _size = size >>> 0 // size to number
 
       const canvas = this.$refs['qrcode-vue']
 
@@ -63,10 +62,10 @@ const QrcodeVue = {
         value,
         {
           errorCorrectionLevel: level,
-          width: _size,
+          width: Number(size),
           color: {
-            dark: background,
-            light: foreground,
+            dark: foreground,
+            light: background,
           },
         },
         function(error) {
